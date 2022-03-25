@@ -3,9 +3,7 @@
 1. `cp .env.example e.env` and `cp .postgresql.env.example .postgresql.env`
 2. Fix their values as you want
     - Generally you want to change the exposed port of Docker
-3. `docker-compose up`
-4. `npm run prisma:dev`
-5. `npm run start:dev`
+3. `docker-compose up --build`
 
 You should see this in terminal after `npm run start:dev`:
 
