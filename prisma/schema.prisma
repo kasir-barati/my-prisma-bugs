@@ -1,0 +1,58 @@
+datasource db {
+    provider = "postgres"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Country {
+    id                String  @id() @unique() @map("country_code_alphabet_2") @db.VarChar(2)
+    cca5              String  @map("country_code_alphabet_5") @db.VarChar(5)
+    nameFa            String  @map("persian_name") @db.VarChar(100)
+    nameEn            String  @map("official_english_name") @db.VarChar(100)
+    phonePrefix       String? @map("phone_prefix") @db.VarChar(7)
+    gmtOffsetInMinute Int
+
+    // relationships
+    capitalId String? @unique @map("capital_id")
+    capital   City?   @relation(fields: [capitalId], references: [id])
+    cities    City[]  @relation("city_belongs_to_country")
+    states    State[]
+
+    @@map("countries")
+}
+
+model State {
+    id     String @id() @map("state_code_alphabet_3") @db.VarChar(3)
+    nameEn String @map("official_english_name") @db.VarChar(100)
+    nameFa String @map("name_fa") @db.VarChar(100)
+
+    // Relationships
+    country   Country @relation(fields: [countryId], references: [id])
+    countryId String  @map("country_id") @db.VarChar(3)
+    cities    City[]
+
+    @@map("states")
+}
+
+model City {
+    id                    String   @id() @unique() @map("city_code_alphabet_3") @db.VarChar(3)
+    nameFa                String   @map("name_fa") @db.VarChar(100)
+    nameEn                String   @map("official_english_name") @db.VarChar(100)
+    unreliableCity        Boolean? @map("unreliable_city")
+    isInternational       Boolean? @default(false) @map("is_international")
+    internationalPriority Int?     @map("international_priority") @db.Integer
+    domesticPriority      Int?     @map("domestic_priority") @db.Integer
+
+    // Relationships
+    countryId          String   @map("country_id") @db.VarChar(4)
+    country            Country  @relation("city_belongs_to_country", fields: [countryId], references: [id])
+    stateId            String?  @map("state_id") @db.VarChar(3)
+    cityBelongsToState State?   @relation(fields: [stateId], references: [id])
+    capitalOfCountry   Country?
+
+    @@index([nameEn])
+    @@map("cities")
+}

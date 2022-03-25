@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  prisma-app: 
+    image: test:1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    command: npm run start:dockerized
+
+  postgres:
+    image: postgres:13
+    restart: always
+    # ports:
+    #   - "${POSTGRESQL_EXPOSED_PORT}:5432"
+    volumes:
+      - postgres:/data/postgres
+    env_file:
+      - .postgresql.env
+    networks:
+      - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:

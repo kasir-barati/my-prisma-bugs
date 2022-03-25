@@ -1,0 +1,35 @@
+[
+    {
+        "countryId": "AA",
+        "id": "AAA",
+        "nameEn": "Charlottetown",
+        "nameFa": "شارلتون",
+        "internationalPriority": 6,
+        "domesticPriority": 2
+    },
+    {
+        "countryId": "AA",
+        "id": "AAB",
+        "nameEn": "Char",
+        "nameFa": "شار",
+        "unreliableCity": true,
+        "internationalPriority": 16,
+        "domesticPriority": 3
+    },
+    {
+        "countryId": "AA",
+        "id": "ABA",
+        "nameEn": "Delma Char",
+        "nameFa": "دلما شار",
+        "unreliableCity": true
+    },
+    {
+        "countryId": "AA",
+        "id": "BAA",
+        "nameEn": "Woodgreen",
+        "nameFa": "وودگرین",
+        "unreliableCity": true,
+        "internationalPriority": 5,
+        "domesticPriority": 1
+    }
+]
