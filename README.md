@@ -5,7 +5,7 @@
     - Generally you want to change the exposed port of Docker
 3. `docker-compose up --build`
 
-You should see this in terminal after `npm run start:dev`:
+You should see this in terminal:
 
 ```cmd
 > my-prisma-bugs@1.0.0 start:dev
@@ -92,7 +92,7 @@ END............
   prisma:client:libraryEngine hookProcess received: exit +0ms
 ```
 
-And in the postgres you should see something like this:
+And for the postgres something like this:
 
 ```cmd
 postgres_1  | 2022-03-25 12:58:38.611 UTC [112] STATEMENT:
